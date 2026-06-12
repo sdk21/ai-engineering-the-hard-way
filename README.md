@@ -23,6 +23,7 @@ Conversation memory, episodic memory, semantic memory, working memory.
 |---|-----------|-----------|--------|
 | 01 | [Conversation Buffer](memory/01-conversation-buffer/) | Beginner | ✅ Ready |
 | 02 | [Sliding Window](memory/02-sliding-window/) | Beginner–Intermediate | ✅ Ready |
+| 03 | [Summarization Memory](memory/03-summarization-memory/) | Intermediate | ✅ Ready |
 
 ---
 
