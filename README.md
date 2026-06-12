@@ -42,6 +42,18 @@ Function calling, tool use, code execution, tool chaining.
 | # | Experiment | Difficulty | Status |
 |---|-----------|-----------|--------|
 | 01 | [Basic Function Calling](tools/01-basic-function-calling/) | Beginner | ✅ Ready |
+| 02 | [Tool Chaining](tools/02-tool-chaining/) | Beginner–Intermediate | ✅ Ready |
+| 03 | [Parallel Tool Calls](tools/03-parallel-tool-calls/) | Beginner–Intermediate | ✅ Ready |
+| 04 | [Tool Error Handling](tools/04-tool-error-handling/) | Intermediate | ✅ Ready |
+| 05 | [Tool Result Context](tools/05-tool-result-context/) | Intermediate | ✅ Ready |
+| 06 | [Human-in-the-Loop](tools/06-human-in-the-loop/) | Intermediate | ✅ Ready |
+| 07 | [Dynamic Tool Selection](tools/07-dynamic-tool-selection/) | Intermediate | ✅ Ready |
+| 08 | [Programmatic Tool Generation](tools/08-programmatic-tool-generation/) | Intermediate | ✅ Ready |
+| 09 | [Streaming with Tools](tools/09-streaming-tools/) | Intermediate | ✅ Ready |
+| 10 | [Tool Use with Memory](tools/10-tool-use-with-memory/) | Intermediate–Advanced | ✅ Ready |
+| 11 | [Multi-Tool Agent](tools/11-multi-tool-agent/) | Advanced | ✅ Ready |
+| 12 | [Tool Composition](tools/12-tool-composition/) | Advanced | ✅ Ready |
+| C | [**Capstone: CLI Agent**](tools/capstone/cli-agent/) | Capstone | ✅ Ready |
 
 ---
 
