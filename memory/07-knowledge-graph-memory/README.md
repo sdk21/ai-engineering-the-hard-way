@@ -413,4 +413,4 @@ This gap illustrates why production systems use LLM-based extraction — natural
 
 ---
 
-*Previous: [Episodic Memory](../06-episodic-memory/) | Next: Layered Memory (coming soon)*
+*Previous: [Episodic Memory](../06-episodic-memory/) | Next: [Provenance & Confidence Memory](../08-provenance-confidence-memory/)*
