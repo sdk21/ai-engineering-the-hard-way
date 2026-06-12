@@ -460,4 +460,4 @@ Run the same conflicting sequence (`"My name is Alice."` then `"My name is Alici
 
 ---
 
-*Previous: [Provenance & Confidence Memory](../08-provenance-confidence-memory/) | Next: Layered Memory (coming soon)*
+*Previous: [Provenance & Confidence Memory](../08-provenance-confidence-memory/) | Next: [Layered Memory](../10-layered-memory/)*
