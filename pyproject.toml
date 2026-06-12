@@ -1,9 +1,21 @@
 [project]
 name = "ai-engineering-the-hard-way"
 version = "0.1.0"
-description = "Add your description here"
+description = "Hands-on experiment lab for learning AI engineering from first principles."
 requires-python = ">=3.12"
 dependencies = [
     "anthropic>=0.109.1",
+    "numpy>=2.4.6",
     "python-dotenv>=1.2.2",
+    "sentence-transformers>=5.5.1",
+    "torch<2.12",
+]
+
+[tool.uv]
+required-environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "sys_platform == 'linux' and platform_machine == 'aarch64'",
+    "sys_platform == 'win32' and platform_machine == 'AMD64'",
 ]
