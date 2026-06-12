@@ -450,4 +450,4 @@ This difference makes the extractor quality concrete — you can see in the audi
 
 ---
 
-*Previous: [Knowledge Graph Memory](../07-knowledge-graph-memory/) | Next: Layered Memory (coming soon)*
+*Previous: [Knowledge Graph Memory](../07-knowledge-graph-memory/) | Next: [Conflict Resolution Memory](../09-conflict-resolution-memory/)*

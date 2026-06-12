@@ -29,6 +29,7 @@ Conversation memory, episodic memory, semantic memory, working memory.
 | 06 | [Episodic Memory](memory/06-episodic-memory/) | Intermediate | ✅ Ready |
 | 07 | [Knowledge Graph Memory](memory/07-knowledge-graph-memory/) | Intermediate–Advanced | ✅ Ready |
 | 08 | [Provenance & Confidence Memory](memory/08-provenance-confidence-memory/) | Intermediate–Advanced | ✅ Ready |
+| 09 | [Conflict Resolution Memory](memory/09-conflict-resolution-memory/) | Advanced | ✅ Ready |
 
 ---
 
