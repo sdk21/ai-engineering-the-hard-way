@@ -31,6 +31,7 @@ Conversation memory, episodic memory, semantic memory, working memory.
 | 08 | [Provenance & Confidence Memory](memory/08-provenance-confidence-memory/) | Intermediate–Advanced | ✅ Ready |
 | 09 | [Conflict Resolution Memory](memory/09-conflict-resolution-memory/) | Advanced | ✅ Ready |
 | 10 | [Layered Memory](memory/10-layered-memory/) | Advanced | ✅ Ready |
+| C | [**Capstone: Personal Assistant**](memory/capstone/personal-assistant/) | Capstone | ✅ Ready |
 
 ---
 
