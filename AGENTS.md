@@ -177,6 +177,53 @@ Use "coming soon" for experiments that don't exist yet:
 
 ---
 
+## Using Real-World Tools in Code
+
+The goal of this project is not just to teach concepts in isolation — it is to show how those concepts connect to the tools engineers actually use in production. Where it meaningfully illustrates a point, use real libraries and tools directly in `experiment.py` or `demo.py`.
+
+### When to use a real tool
+
+Use a real library when the tool **is the point of the lesson** or when it **concretely illustrates a principle** that would otherwise be abstract:
+
+- The concept has a dominant real-world implementation that practitioners will encounter (e.g., FAISS for ANN search, sentence-transformers for embeddings)
+- The tool exposes a design choice that is worth understanding (e.g., HNSW parameters, index types)
+- Showing the tool alongside a naive implementation makes the tradeoff concrete and measurable
+
+**Example — vector memory:** The experiment ships both a naive `NumpyVectorStore` (O(N) exact search) and a `FaissVectorStore` (O(log N) HNSW). The contrast is the lesson: "here is why production systems use ANN."
+
+### When NOT to use a real tool
+
+Do not reach for a library when:
+
+- A simple implementation teaches the concept more clearly (hide nothing behind abstractions early in the progression)
+- The library is just convenience — it adds a dependency without adding insight
+- The experiment is foundational (01, 02 in a vertical) — start with the simplest possible code and introduce real tools as complexity grows
+- The tool would dominate the experiment and obscure what is actually being taught
+
+**Example — conversation buffer:** `experiment.py` is a plain Python list. Importing LangChain's `ConversationBufferMemory` would hide the one-line insight that memory is just a list of dicts. Save the library for the "In the Real World" section.
+
+### How to introduce real tools
+
+When a real tool is appropriate:
+
+1. **Build the naive version first** in the same file or a prior experiment. The learner must understand what the tool is replacing before seeing the tool.
+2. **Keep both implementations** and let the user switch between them (e.g., `--store numpy` vs `--store faiss`). The contrast is the lesson.
+3. **Annotate the parameters** — real tools have knobs. Explain what they do and why the defaults were chosen.
+4. **Note platform/version constraints** in comments if relevant (e.g., FAISS wheel availability).
+
+### Summary
+
+| Situation | Decision |
+|-----------|----------|
+| Tool *is* the concept (FAISS for ANN, sentence-transformers for embeddings) | ✅ Use it |
+| Tool illustrates a tradeoff alongside a naive implementation | ✅ Use it |
+| Tool is the dominant industry standard for the topic | ✅ Use it |
+| Foundational experiment (01–02 in a vertical) | ❌ Keep it simple |
+| Tool is just a convenience wrapper with no new insight | ❌ Skip it |
+| Tool would obscure what is being taught | ❌ Skip it |
+
+---
+
 ## Dependency Management
 
 This project uses [uv](https://github.com/astral-sh/uv).
