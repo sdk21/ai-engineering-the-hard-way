@@ -26,6 +26,7 @@ Conversation memory, episodic memory, semantic memory, working memory.
 | 03 | [Summarization Memory](memory/03-summarization-memory/) | Intermediate | ✅ Ready |
 | 04 | [Vector Memory](memory/04-vector-memory/) | Intermediate | ✅ Ready |
 | 05 | [Entity Memory](memory/05-entity-memory/) | Intermediate | ✅ Ready |
+| 06 | [Episodic Memory](memory/06-episodic-memory/) | Intermediate | ✅ Ready |
 
 ---
 
