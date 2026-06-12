@@ -171,22 +171,59 @@ We use cosine rather than Euclidean distance because embedding vectors can have 
 
 The vector store is the data structure that holds all embeddings and supports fast similarity search.
 
-**Naive implementation (this experiment):** Store all vectors in a numpy array. At query time, compute cosine similarity with every stored vector and return the top-k. This is `O(N)` per query — fine for small corpora (< 10k entries), too slow for large ones.
+This experiment ships **two implementations** to show the contrast directly:
 
-**Production implementations** use Approximate Nearest Neighbour (ANN) algorithms (HNSW, IVF, LSH) that trade a small accuracy loss for `O(log N)` or `O(1)` query time, enabling retrieval over millions of vectors in milliseconds.
+**`NumpyVectorStore` — exact linear search**
+Stores all vectors in a list. At query time, stacks them into a matrix and computes cosine similarity against every vector with a single matrix multiply. Time complexity: `O(N × d)`.
 
-Common production vector stores:
+```
+N=100   turns  →  ~0.01ms per search  ✅ unnoticeable
+N=10k   turns  →  ~1ms    per search  ✅ fine
+N=100k  turns  →  ~10ms   per search  ⚠️  noticeable
+N=1M    turns  →  ~100ms  per search  ❌ too slow
+```
+
+**`FaissVectorStore` — HNSW approximate nearest neighbour**
+Builds an HNSW (Hierarchical Navigable Small World) graph index. Search navigates the graph greedily, visiting only `O(log N)` nodes before converging on the approximate nearest neighbours.
+
+```
+N=100    turns  →  ~0.01ms per search
+N=10k    turns  →  ~0.05ms per search
+N=100k   turns  →  ~0.1ms  per search
+N=1M     turns  →  ~0.5ms  per search   ✅ still fast
+```
+
+The tradeoff: FAISS may occasionally miss the true nearest neighbour (approximate), returning the #4 closest vector instead of #3. In practice the recall is >99% and the missed result would have been returned anyway. For memory retrieval this is completely acceptable.
+
+**How HNSW works:**
+HNSW builds a multi-layer proximity graph. Layer 0 is a dense graph where every vector is connected to its `M` nearest neighbours. Higher layers are progressively sparser subsets. Search enters at the top layer (few nodes, fast coarse navigation), finds an approximate entry point, then descends to layer 0 for fine-grained search — like zooming into a map.
+
+```
+Layer 2:  ●───────────────●          (sparse, few nodes)
+Layer 1:  ●───●───────●───●──●       (medium density)
+Layer 0:  ●─●─●─●─●─●─●─●─●─●─●    (dense, all nodes)
+          search descends ↓
+```
+
+Switch between backends with the `--store` flag:
+
+```bash
+uv run python demo.py --mock --store numpy   # O(N) exact search (default)
+uv run python demo.py --mock --store faiss   # O(log N) HNSW approximate search
+```
+
+Both produce the same retrieval results — the difference only becomes visible at scale.
+
+Common production vector stores built on similar ANN algorithms:
 
 | Store | Type | Notes |
 |-------|------|-------|
-| FAISS | Library | Meta's ANN library, extremely fast |
-| Chroma | Embedded DB | Easy to use, local-first |
-| Pinecone | Cloud | Fully managed, serverless |
-| Weaviate | Cloud/self-hosted | Graph + vector hybrid |
-| pgvector | Postgres extension | Vectors inside your existing DB |
-| Qdrant | Cloud/self-hosted | High-performance, Rust-based |
-
-For this experiment we use numpy — the mechanics are identical, just without ANN optimisation.
+| FAISS | Library | Meta's ANN library, HNSW + IVF, used by many production systems |
+| Chroma | Embedded DB | Wraps HNSW, easy local-first setup |
+| Pinecone | Cloud | Fully managed, serverless, proprietary ANN |
+| Weaviate | Cloud/self-hosted | Graph + vector hybrid, HNSW index |
+| pgvector | Postgres extension | Vectors inside your existing DB, HNSW + IVF |
+| Qdrant | Cloud/self-hosted | High-performance, Rust-based, HNSW |
 
 ---
 
@@ -355,11 +392,17 @@ Copilot uses embedding-based semantic search over your repository to find releva
 ```bash
 # From the project root
 
-# Mock mode — deterministic BoW embeddings, no model download
+# Mock mode — deterministic BoW embeddings, numpy exact search (default)
 uv run python memory/04-vector-memory/demo.py --mock
+
+# Mock mode — FAISS HNSW index (O(log N), scales to millions of vectors)
+uv run python memory/04-vector-memory/demo.py --mock --store faiss
 
 # Real mode — all-MiniLM-L6-v2 embeddings + Claude
 ANTHROPIC_API_KEY=sk-... uv run python memory/04-vector-memory/demo.py --real
+
+# Real mode with FAISS
+ANTHROPIC_API_KEY=sk-... uv run python memory/04-vector-memory/demo.py --real --store faiss
 
 # Tune retrieval parameters
 uv run python memory/04-vector-memory/demo.py --mock --buffer 4 --top-k 2

@@ -3,6 +3,8 @@ Demo: Vector Memory
 Usage:
     uv run python demo.py --mock
     uv run python demo.py --real
+    uv run python demo.py --mock --store faiss   # use HNSW index instead of numpy
+    uv run python demo.py --real --store faiss
 
 Suggested conversation to see semantic retrieval in action:
     1. "My name is Alice and I'm a Python engineer."
@@ -24,7 +26,7 @@ import sys
 
 import numpy as np
 
-from experiment import Embedder, VectorMemory
+from experiment import Embedder, FaissVectorStore, NumpyVectorStore, VectorMemory
 
 
 # ---------------------------------------------------------------------------
@@ -123,15 +125,35 @@ def real_chat(messages: list[dict], system: str, api_key: str) -> str:
 # Demo loop
 # ---------------------------------------------------------------------------
 
-def run_demo(use_mock: bool, buffer_size: int, top_k: int, api_key: str | None) -> None:
+def run_demo(
+    use_mock: bool,
+    buffer_size: int,
+    top_k: int,
+    use_faiss: bool,
+    api_key: str | None,
+) -> None:
     mode = "MOCK" if use_mock else "REAL (Claude)"
-    print(f"\n=== Vector Memory Demo [{mode}] | buffer={buffer_size}, top_k={top_k} ===")
+    store_name = "faiss (HNSW)" if use_faiss else "numpy (exact)"
+    print(f"\n=== Vector Memory Demo [{mode}] | store={store_name} | buffer={buffer_size}, top_k={top_k} ===")
     print("Past turns are embedded and retrieved by semantic similarity.")
     print("Commands: 'store' to inspect the vector store, 'stats' for memory stats, 'quit' to exit.\n")
 
     embedder: Embedder = MockEmbedder() if use_mock else RealEmbedder()
+
+    if use_faiss:
+        # Determine embedding dimension from a test encode
+        dim = embedder.encode(["test"]).shape[1]
+        vector_store = FaissVectorStore(dim=dim)
+        print(f"Using FAISS HNSW index (dim={dim}, M=32, efSearch=64)")
+        print("Search complexity: O(log N) — scales to millions of vectors\n")
+    else:
+        vector_store = NumpyVectorStore()
+        print("Using numpy exact search")
+        print("Search complexity: O(N) — compares against every stored vector\n")
+
     memory = VectorMemory(
         embedder=embedder,
+        store=vector_store,
         buffer_size=buffer_size,
         top_k=top_k,
     )
@@ -185,6 +207,12 @@ if __name__ == "__main__":
     group.add_argument("--real", action="store_true")
     parser.add_argument("--buffer", type=int, default=6, help="Recent message buffer size")
     parser.add_argument("--top-k", type=int, default=3, help="Memories to retrieve per turn")
+    parser.add_argument(
+        "--store",
+        choices=["numpy", "faiss"],
+        default="numpy",
+        help="Vector store backend: numpy (exact, O(N)) or faiss (HNSW, O(log N))",
+    )
     args = parser.parse_args()
 
     api_key = os.environ.get("ANTHROPIC_API_KEY")
@@ -192,4 +220,10 @@ if __name__ == "__main__":
         print("Error: ANTHROPIC_API_KEY not set.")
         sys.exit(1)
 
-    run_demo(use_mock=args.mock, buffer_size=args.buffer, top_k=args.top_k, api_key=api_key)
+    run_demo(
+        use_mock=args.mock,
+        buffer_size=args.buffer,
+        top_k=args.top_k,
+        use_faiss=(args.store == "faiss"),
+        api_key=api_key,
+    )
