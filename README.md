@@ -81,11 +81,24 @@ Chain-of-thought, ReAct, task decomposition, hierarchical planning, self-reflect
 
 ## Multi-Agent
 
-Orchestration, routing, swarms, debate, parallelism.
+Routing, orchestration, parallel fan-out, debate, consensus voting, swarms, hierarchical agents.
 
 | # | Experiment | Difficulty | Status |
 |---|-----------|-----------|--------|
-| 01 | [Agent Router](multi-agent/01-router/) | Beginner | 🔜 Coming Soon |
+| 01 | [Router](multi-agent/01-router/) | Beginner | ✅ Ready |
+| 02 | [Orchestrator + Subagents](multi-agent/02-orchestrator/) | Beginner | ✅ Ready |
+| 03 | [Parallel Fan-out](multi-agent/03-parallel-fanout/) | Beginner | ✅ Ready |
+| 04 | [Sequential Pipeline](multi-agent/04-sequential-pipeline/) | Intermediate | ✅ Ready |
+| 05 | [Critic Agent](multi-agent/05-critic-agent/) | Intermediate | ✅ Ready |
+| 06 | [Debate](multi-agent/06-debate/) | Intermediate | ✅ Ready |
+| 07 | [Consensus Voting](multi-agent/07-consensus-voting/) | Intermediate | ✅ Ready |
+| 08 | [Peer Review](multi-agent/08-peer-review/) | Intermediate | ✅ Ready |
+| 09 | [Shared Blackboard](multi-agent/09-shared-blackboard/) | Intermediate | ✅ Ready |
+| 10 | [Swarm](multi-agent/10-swarm/) | Advanced | ✅ Ready |
+| 11 | [Task Auction](multi-agent/11-task-auction/) | Advanced | ✅ Ready |
+| 12 | [Human-in-the-Loop](multi-agent/12-human-in-the-loop/) | Advanced | ✅ Ready |
+| 13 | [Hierarchical Multi-Agent](multi-agent/13-hierarchical/) | Advanced | ✅ Ready |
+| 🏆 | [Capstone: Research Team](multi-agent/capstone/research-team/) | Advanced | ✅ Ready |
 
 ---
 
