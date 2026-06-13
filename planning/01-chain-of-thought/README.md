@@ -1,6 +1,6 @@
 # Lesson: Chain-of-Thought Prompting
 
-**Vertical:** Planning | **Difficulty:** Beginner | **Status:** 🔜 Coming Soon
+**Vertical:** Planning | **Difficulty:** Beginner | **Status:** ✅ Ready
 
 ---
 
@@ -244,4 +244,4 @@ ANTHROPIC_API_KEY=sk-... uv run python planning/01-chain-of-thought/demo.py --re
 
 ---
 
-*Next experiment: ReAct (Reasoning + Acting) — coming soon*
+*Next experiment: [Zero-Shot CoT](../02-zero-shot-cot/)*

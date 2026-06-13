@@ -59,11 +59,23 @@ Function calling, tool use, code execution, tool chaining.
 
 ## Planning
 
-Chain-of-thought, ReAct, task decomposition, self-reflection.
+Chain-of-thought, ReAct, task decomposition, hierarchical planning, self-reflection, tree of thoughts, replanning.
 
 | # | Experiment | Difficulty | Status |
 |---|-----------|-----------|--------|
-| 01 | [Chain-of-Thought](planning/01-chain-of-thought/) | Beginner | 🔜 Coming Soon |
+| 01 | [Chain-of-Thought](planning/01-chain-of-thought/) | Beginner | ✅ Ready |
+| 02 | [Zero-Shot CoT](planning/02-zero-shot-cot/) | Beginner | ✅ Ready |
+| 03 | [ReAct](planning/03-react/) | Intermediate | ✅ Ready |
+| 04 | [Task Decomposition](planning/04-task-decomposition/) | Beginner | ✅ Ready |
+| 05 | [Task Graph](planning/05-task-graph/) | Intermediate | ✅ Ready |
+| 06 | [Hierarchical Planning](planning/06-hierarchical-planning/) | Intermediate | ✅ Ready |
+| 07 | [Plan-and-Execute](planning/07-plan-and-execute/) | Intermediate | ✅ Ready |
+| 08 | [Self-Reflection](planning/08-self-reflection/) | Intermediate | ✅ Ready |
+| 09 | [Tree of Thoughts](planning/09-tree-of-thoughts/) | Advanced | ✅ Ready |
+| 10 | [Backtracking](planning/10-backtracking/) | Advanced | ✅ Ready |
+| 11 | [Adaptive Planning](planning/11-adaptive-planning/) | Advanced | ✅ Ready |
+| 12 | [Replanning](planning/12-replanning/) | Advanced | ✅ Ready |
+| 🏆 | [Capstone: Autonomous Task Solver](planning/capstone/autonomous-task-solver/) | Advanced | ✅ Ready |
 
 ---
 
